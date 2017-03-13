@@ -2,7 +2,7 @@
 
 # ChatKeyboard
 
-[![](https://github.com/yangchaojiang/ChatKeyboard-master) 
+[](https://github.com/yangchaojiang/ChatKeyboard-master)
 
 A powerful and easy using keyboard lib includes emoticons, audio recording, multi media keyboard, etc.
  
@@ -61,4 +61,4 @@ other usage
 please refer to the demo code
 
 Thanks for [xhsEmoticonsKeyboard](https://github.com/w446108264/XhsEmoticonsKeyboard) powered by w446108264.
-Thanks to Chris for ideas   [![](https://github.com/CPPAlien)  email creaspan@gmail.com
+Thanks to Chris for ideas   [](https://github.com/CPPAlien)  email creaspan@gmail.com
