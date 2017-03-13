@@ -9,12 +9,19 @@ A powerful and easy using keyboard lib includes emoticons, audio recording, mult
 
 ###Import
 
-use maven to import dependency in gradle
+use     import dependency in gradle
 
 ```
 dependencies {
-    compile 'com.github.CPPAlien:ChatKeyboard:1.0.1'
+ compile 'ycjiang:videolibrary:1.0.4'
 }
+Maven
+dependency>
+  <groupId>ycjiang</groupId>
+  <artifactId>videolibrary</artifactId>
+  <version>1.0.4</version>
+  <type>pom</type>
+</dependency>
 ```
 
 
