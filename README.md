@@ -33,10 +33,11 @@ dependency
 ###How to use
 
 1, Use ChatKeyboardLayout make your layout contains keyboard.
+ 用Framgment extends KeyboardFragment 
  
 ```
 FragmentTransaction sss = getSupportFragmentManager().beginTransaction();
-        keyboardFragment = new KeyboardFragment();
+    KeyboardFragment    keyboardFragment = new KeyboardFragment();
         sss.add(R.id.sssssssss, keyboardFragment);
         sss.commit();
         keyboardFragment.setKeyBoardLister(this);
