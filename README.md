@@ -5,23 +5,13 @@
 [![](https://github.com/yangchaojiang/ChatKeyboard-master) 
 
 A powerful and easy using keyboard lib includes emoticons, audio recording, multi media keyboard, etc.
-
-
-###Demo
-<div class='row'>
-    <img src='http://7xq276.com2.z0.glb.qiniucdn.com/keyboard-demo.gif' width="250px"/>
-</div>
-
-
+ 
 
 ###Import
 
 use maven to import dependency in gradle
 
 ```
-repositories{
-    maven { url "https://jitpack.io" }
-}
 dependencies {
     compile 'com.github.CPPAlien:ChatKeyboard:1.0.1'
 }
