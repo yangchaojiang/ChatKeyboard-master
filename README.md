@@ -13,7 +13,7 @@ use     import dependency in gradle
 
 ```
 dependencies {
- compile 'ycjiang:videolibrary:1.0.4'
+compile 'ycjiang:keyboard:1.0.1'
 }
 Maven
 dependency>
