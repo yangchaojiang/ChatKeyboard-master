@@ -228,8 +228,9 @@ public class ChatKeyboardLayout extends SoftHandleLayout implements EmoticonsToo
             if (!etInputArea.getText().toString().equals("")) {
                 if (mOnChatKeyBoardListener != null) {
                     mOnChatKeyBoardListener.onSendBtnClick(etInputArea.getText().toString());
+
+                    clearInputArea();
                 }
-                clearInputArea();
             }
         }
     }
@@ -324,6 +325,9 @@ public class ChatKeyboardLayout extends SoftHandleLayout implements EmoticonsToo
                         show(FUNC_MEDIA_POS);
                     }
                     break;
+            }
+            if (mOnChatKeyBoardListener != null) {
+                mOnChatKeyBoardListener.clickAddBtn(view);
             }
         }
     }
@@ -477,6 +481,8 @@ public class ChatKeyboardLayout extends SoftHandleLayout implements EmoticonsToo
         void onRecordingAction(RecordingAction action);
 
         void onUserDefEmoticonClicked(String tag, String uri);
+
+        void clickAddBtn(View view);
     }
 
     public enum RecordingAction {

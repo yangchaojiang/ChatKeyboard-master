@@ -52,15 +52,6 @@ public class KeyboardFragment extends Fragment implements MediaListener, ChatKey
     protected ArrayList<MediaBean> intiData() {
         ArrayList<MediaBean> popupModels = new ArrayList<>();
         popupModels.add(new MediaBean(0, R.drawable.icon_photo, "拍照", this));
-        popupModels.add(new MediaBean(1, R.drawable.icon_photo, "照片", this));
-        popupModels.add(new MediaBean(2, R.drawable.icon_photo, "拍照", this));
-        popupModels.add(new MediaBean(3, R.drawable.icon_photo, "照片", this));
-        popupModels.add(new MediaBean(4, R.drawable.icon_photo, "拍照", this));
-        popupModels.add(new MediaBean(5, R.drawable.icon_photo, "照片", this));
-        popupModels.add(new MediaBean(6, R.drawable.icon_photo, "拍照", this));
-        popupModels.add(new MediaBean(7, R.drawable.icon_photo, "照片", this));
-        popupModels.add(new MediaBean(8, R.drawable.icon_photo, "拍照", this));
-        popupModels.add(new MediaBean(9, R.drawable.icon_photo, "照片", this));
         return popupModels;
     }
 
@@ -115,6 +106,13 @@ public class KeyboardFragment extends Fragment implements MediaListener, ChatKey
     public void onUserDefEmoticonClicked(String tag, String uri) {
         if (keyBoardLister != null) {
             keyBoardLister.sendUserDefEmoticon(tag, uri);
+        }
+    }
+
+    @Override
+    public void clickAddBtn(View view) {
+        if (keyBoardLister != null) {
+            keyBoardLister.clickAddBtn(view);
         }
     }
 
