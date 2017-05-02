@@ -50,5 +50,10 @@ public class MainActivity extends AppCompatActivity implements OnKeyBoardLister 
 
     }
 
+    @Override
+    public void clickAddBtn(View view) {
+
+    }
+
 
 }
