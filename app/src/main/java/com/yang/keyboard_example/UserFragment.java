@@ -1,6 +1,12 @@
 package com.yang.keyboard_example;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.view.View;
+
+import com.yang.keyboard.ChatKeyboardLayout;
 import com.yang.keyboard.KeyboardFragment;
+import com.yang.keyboard.RecordingLayout;
 import com.yang.keyboard.media.MediaBean;
 
 import java.util.ArrayList;
@@ -30,4 +36,13 @@ public class UserFragment extends KeyboardFragment {
         return popupModels;
     }
 
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        keyboardLayout = (ChatKeyboardLayout) view.findViewById(com.yang.keyboard.R.id.kv_bar);
+        rlRecordArea = (RecordingLayout) view.findViewById(com.yang.keyboard.R.id.recording_area);
+        ArrayList<MediaBean> popupModels = intiData();
+        keyboardLayout.showMedias(popupModels);
+        keyboardLayout.setOnKeyBoardBarListener(this);
+    }
 }

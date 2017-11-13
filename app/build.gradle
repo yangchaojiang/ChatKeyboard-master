@@ -1,13 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion '25.0.0'
-
+    compileSdkVersion project.ext.compileSdkVersion
+    buildToolsVersion project.ext.buildToolsVersion
     defaultConfig {
+        minSdkVersion project.ext.minSdkVersion
+        targetSdkVersion project.ext.targetSdkVersion
         applicationId "cn.hadcn.keyboard_example"
-        minSdkVersion 16
-        targetSdkVersion 23
         versionCode 1
         versionName "1.0"
     }
@@ -22,6 +21,7 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.1.0'
+    compile 'cn.jiguang.imui:messagelist:0.4.9'
     compile project(':keyboard')
+    compile 'com.github.bumptech.glide:glide:3.7.0'
 }
