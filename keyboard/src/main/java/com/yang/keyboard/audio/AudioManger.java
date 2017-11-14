@@ -62,6 +62,8 @@ public class AudioManger {
         recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
 //        recorder.setOutputFormat(MediaRecorder.OutputFormat.AMR_NB);
 //        recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+        // .m4a 格式可以在 iOS 上直接播放
+        //recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
         recorder.setOutputFile(path);
 
         try {
@@ -189,7 +191,8 @@ public class AudioManger {
     /**
      * play the audio
      *
-     * @param path path of the audio file
+     * @param path     path of the audio file
+     * @param listener 接口
      */
     public synchronized void playAudio(String path, OnMediaPlayComplete listener) {
         mPlayListener = listener;

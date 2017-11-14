@@ -65,6 +65,7 @@ public class ChatKeyboardLayout extends SoftHandleLayout implements EmoticonsToo
     private boolean isLimitedOnlyText = false;
 
     private Drawable mBtnSendBg = null;
+    private boolean isShowEmoBtn;
 
     public ChatKeyboardLayout(Context context) {
         super(context, null);
@@ -350,7 +351,12 @@ public class ChatKeyboardLayout extends SoftHandleLayout implements EmoticonsToo
         ++FUNC_ORDER_COUNT;
     }
 
+    private void showEmoBtn(boolean isShowEmoBtn) {
+        btnEmoticon.setVisibility(isShowEmoBtn ? VISIBLE : GONE);
+        this.isShowEmoBtn = isShowEmoBtn;
+    }
     public void showEmoticons() {
+        if (isShowEmoBtn) return;
         btnEmoticon.setVisibility(VISIBLE);
         EmoticonsKeyboardBuilder builder = getBuilder(mContext);
         EmoticonLayout layout = new EmoticonLayout(mContext);

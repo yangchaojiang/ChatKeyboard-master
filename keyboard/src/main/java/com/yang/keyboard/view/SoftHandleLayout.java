@@ -120,6 +120,7 @@ public class SoftHandleLayout extends SoftListenLayout {
 
     /**
      * display soft keyboard
+     * @param et 打开
      */
     protected void openSoftKeyboard( EditText et ) {
         InputMethodManager inputManager = (InputMethodManager) et.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -128,6 +129,7 @@ public class SoftHandleLayout extends SoftListenLayout {
 
     /**
      * close soft keyboard
+     * @param  et view
      */
     protected void closeSoftKeyboard( EditText et ) {
         InputMethodManager inputMethodManager = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);

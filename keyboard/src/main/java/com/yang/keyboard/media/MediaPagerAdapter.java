@@ -18,22 +18,27 @@ import com.yang.keyboard.R;
  * Description:[自定义选择分页适配器]
  **/
 public class MediaPagerAdapter extends PagerAdapter {
-	private static final int MAX_NUM_PER_PAGE = 8;
+    private static final int MAX_NUM_PER_PAGE = 8;
     private Context mContext;
-    private  List<MediaGridAdapter> gridAdapterList = new ArrayList<>();
-    private   int mPageNum = 0;
-    private   int mColumnWidth = 0;
+    private List<MediaGridAdapter> gridAdapterList = new ArrayList<>();
+    private int mPageNum = 0;
+    private int mColumnWidth = 0;
 
+    /**
+     * @param context     context
+     * @param mediaModels 数据
+     * @param columnWidth 列
+     ***/
     public MediaPagerAdapter(Context context, List<MediaBean> mediaModels, int columnWidth) {
         mContext = context;
         mColumnWidth = columnWidth;
         mPageNum = (int) Math.ceil((float) mediaModels.size() / MAX_NUM_PER_PAGE);
         for (int i = 0; i < mPageNum; ++i) {
             ArrayList<MediaBean> mediaItems = new ArrayList<>();
-            for (int j = i * MAX_NUM_PER_PAGE; j < (i+1) * MAX_NUM_PER_PAGE && j < mediaModels.size(); ++j) {
+            for (int j = i * MAX_NUM_PER_PAGE; j < (i + 1) * MAX_NUM_PER_PAGE && j < mediaModels.size(); ++j) {
                 mediaItems.add(mediaModels.get(j));
             }
-            MediaGridAdapter adapter = new MediaGridAdapter( mContext, mediaItems, mColumnWidth );
+            MediaGridAdapter adapter = new MediaGridAdapter(mContext, mediaItems, mColumnWidth);
             gridAdapterList.add(adapter);
         }
     }
@@ -42,14 +47,14 @@ public class MediaPagerAdapter extends PagerAdapter {
         return mPageNum;
     }
 
-	@Override
-	public int getCount() {
-		return gridAdapterList.size();
-	}
+    @Override
+    public int getCount() {
+        return gridAdapterList.size();
+    }
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        LayoutInflater inflater = (LayoutInflater)mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View layout = inflater.inflate(R.layout.media_page, container, false);
 
         GridView grid = (GridView) layout.findViewById(R.id.media_grid);
@@ -75,7 +80,7 @@ public class MediaPagerAdapter extends PagerAdapter {
     }
 
     @Override
-	public boolean isViewFromObject(View view, Object object) {
-		return view == object;
-	}
+    public boolean isViewFromObject(View view, Object object) {
+        return view == object;
+    }
 }

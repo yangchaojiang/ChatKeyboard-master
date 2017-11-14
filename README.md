@@ -33,11 +33,11 @@ dependency
 ###How to use
 
 1, Use ChatKeyboardLayout make your layout contains keyboard.
- 用Framgment extends KeyboardFragment 
+ 用你 Framgment extends KeyboardFragment 
  
 ```
 FragmentTransaction sss = getSupportFragmentManager().beginTransaction();
-    KeyboardFragment    keyboardFragment = new KeyboardFragment();
+    UserFragment    keyboardFragment = new UserFragment();
         sss.add(R.id.sssssssss, keyboardFragment);
         sss.commit();
         keyboardFragment.setKeyBoardLister(this);
@@ -55,7 +55,7 @@ perhaps
 
 **Notice: ChatKeyboardLayout can only include one child.**
 2, custom your emoticon and stick keyboard
-```java
+```
 if ( !ChatKeyboardLayout.isEmoticonInitSuccess(this) ) {
 	List<EmoticonEntity> entities = new ArrayList<>();
 	entities.add(new EmoticonEntity("emoticons/xhs", EmoticonBase.Scheme.ASSETS));

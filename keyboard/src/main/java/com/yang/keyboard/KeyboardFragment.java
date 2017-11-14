@@ -1,6 +1,7 @@
 package com.yang.keyboard;
 
 import android.os.Bundle;
+import android.support.annotation.CallSuper;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -24,10 +25,10 @@ import com.yang.keyboard.utils.OnKeyBoardLister;
 
 public class KeyboardFragment extends Fragment implements MediaListener, ChatKeyboardLayout.OnChatKeyBoardListener {
 
-    private static final String TAG = "KeyboardFragment";
-    ChatKeyboardLayout keyboardLayout = null;
-    RecordingLayout rlRecordArea;
-    OnKeyBoardLister keyBoardLister;
+    protected String TAG = KeyboardFragment.class.getName();
+    protected ChatKeyboardLayout keyboardLayout = null;
+    protected RecordingLayout rlRecordArea;
+    protected OnKeyBoardLister keyBoardLister;
 
     @Nullable
     @Override
@@ -48,6 +49,7 @@ public class KeyboardFragment extends Fragment implements MediaListener, ChatKey
 
     /****
      * 重写实现选择器内容选择器
+     * @return ArrayList
      * ******/
     protected ArrayList<MediaBean> intiData() {
         ArrayList<MediaBean> popupModels = new ArrayList<>();

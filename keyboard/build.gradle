@@ -13,109 +13,23 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    lintOptions {
+        abortOnError false
+    }
+
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:23.2.0'
+    compile 'com.android.support:appcompat-v7:25.3.1'
 }
-/**第三步 在需要上library  build.gradle  增加配置信息
- /** 以下开始是将Android Library上传到jcenter的相关配置**/
-apply plugin: 'com.github.dcendents.android-maven'
-apply plugin: 'com.jfrog.bintray'
-//项目主页
-def siteUrl = 'https://github.com/yangchaojiang/ChatKeyboard-master'    // project homepage
-//项目的版本控制地址
-def gitUrl = 'git@github.com:yangchaojiang/ChatKeyboard-master.git' // project git
-
-//发布到组织名称名字，必须填写
-group = "ycjiang"   //没有用户名
-//发布到JCenter上的项目名字，必须填写
-def libName = "keyboard"
-// 版本号，下次更新是只需要更改版本号即可
-version = "1.0.1"
-/**  上面配置后上传至jcenter后的编译路径是这样的： compile 'ycjiang:keyboard:1.0'  **/
-
-//生成源文件
-task sourcesJar(type: Jar) {
-    from android.sourceSets.main.java.srcDirs
-    classifier = 'sources'
+apply plugin: 'com.novoda.bintray-release'
+publish {
+    userOrg = 'ycjiang'      //bintray注册的用户名
+    groupId = 'com.ycjiang'         //compile引用时的第1部分groupId
+    artifactId = 'keyboard'     //compile引用时的第2部分项目名
+    publishVersion = '1.0.2'  //compile引用时的第3部分版本号
+    desc = 'Custom keyboard support custom Emoticon and voice recording multimedia selector'//d项目描述
+    repoName="yangjiang" //你的仓库名称，没有填写默认仓库是maven//这也是很多人上传仓库不对问题最多情况，
+    website = 'git@github.com:yangchaojiang/ChatKeyboard-master.gitr' //github 托管地址
 }
-//生成文档
-task javadoc(type: Javadoc) {
-    source = android.sourceSets.main.java.srcDirs
-    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-    options.encoding "UTF-8"
-    options.charSet 'UTF-8'
-    options.author true
-    options.version true
-    options.links "https://github.com/linglongxin24/FastDev/tree/master/mylibrary/docs/javadoc"
-    failOnError false
-}
-
-//文档打包成jar
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from javadoc.destinationDir
-}
-//拷贝javadoc文件
-task copyDoc(type: Copy) {
-    from "${buildDir}/docs/"
-    into "docs"
-}
-
-//上传到jcenter所需要的源码文件
-artifacts {
-    archives javadocJar
-    archives sourcesJar
-}
-
-// 配置maven库，生成POM.xml文件
-install {
-    repositories.mavenInstaller {
-        // This generates POM.xml with proper parameters
-        pom {
-            project {
-                packaging 'aar'
-                name "Custom keyboard support custom Emoticon and voice recording multimedia selector"
-                licenses {
-                    license {
-                        name "Custom keyboard support custom Emoticon and voice recording multimedia selector"
-                        url siteUrl
-                    }
-                }
-                developers {
-//                    developer {
-//                        id 'ycjiang'
-//                        name 'ycjiang'
-//                        email 'yangchaojiang@outlook.com'
-//                    }
-               }
-                scm {
-                    connection gitUrl
-                    developerConnection gitUrl
-                    url siteUrl
-                }
-            }
-        }
-    }
-}
-
-//上传到jcenter
-Properties properties = new Properties()
-properties.load(project.rootProject.file('local.properties').newDataInputStream())
-bintray {
-    user = properties.getProperty("bintray.user")    //读取 local.properties 文件里面的 bintray.user
-    key = properties.getProperty("bintray.apikey")   //读取 local.properties 文件里面的 bintray.apikey
-    configurations = ['archives']
-    pkg {
-        repo = "yangjiang"
-        name = libName    //发布到JCenter上的项目名字，必须填写
-        desc = "Custom keyboard support custom Emoticon and voice recording multimedia selector"   //项目描述
-        websiteUrl = siteUrl
-        vcsUrl = gitUrl
-        licenses = ["Apache-2.0"]
-        publish = true
-    }
-}
-
