@@ -18,18 +18,15 @@ public class SoftHandleLayout extends SoftListenLayout {
     public static final int KEYBOARD_STATE_NONE = 100;  // no pop
     public static final int KEYBOARD_STATE_FUNC = 101;  // only media or emoticon pop
     public static final int KEYBOARD_STATE_BOTH = 102;  // keyboard and media or emoticon pop together
-
     protected Context mContext;
     protected int mAutoHeightLayoutId;
     protected int mAutoViewHeight;
     protected View mAutoHeightLayoutView;
     protected int mKeyboardState = KEYBOARD_STATE_NONE;
     private boolean isAutoViewNeedHide = true; //if soft keyboard close by itself, close auto view too. if not, just close keyboard
-
     public SoftHandleLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.mContext = context;
-
         mAutoViewHeight = Utils.getDefKeyboardHeight(mContext);
     }
 

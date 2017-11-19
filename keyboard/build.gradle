@@ -28,7 +28,7 @@ publish {
     userOrg = 'ycjiang'      //bintray注册的用户名
     groupId = 'com.ycjiang'         //compile引用时的第1部分groupId
     artifactId = 'keyboard'     //compile引用时的第2部分项目名
-    publishVersion = '1.0.2'  //compile引用时的第3部分版本号
+    publishVersion = '1.0.6'  //compile引用时的第3部分版本号
     desc = 'Custom keyboard support custom Emoticon and voice recording multimedia selector'//d项目描述
     repoName="yangjiang" //你的仓库名称，没有填写默认仓库是maven//这也是很多人上传仓库不对问题最多情况，
     website = 'git@github.com:yangchaojiang/ChatKeyboard-master.gitr' //github 托管地址

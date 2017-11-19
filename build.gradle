@@ -3,25 +3,26 @@
 buildscript {
     repositories {
         jcenter()
+        google()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.0'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
-        classpath 'com.novoda:bintray-release:0.4.0'
+        classpath 'com.novoda:bintray-release:0.6.1'
     }
 }
 
 allprojects {
     repositories {
         jcenter()
+        google()
     }
     project.ext {
-        buildToolsVersion="26.0.2"
+        buildToolsVersion="26.0.3"
         minSdkVersion=16
         compileSdkVersion = 25
         targetSdkVersion = 25
-        compileSdkVersion=25
         versionCode=1
         versionName="1.0"
     }

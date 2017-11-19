@@ -1,4 +1,4 @@
-package com.yang.keyboard.emoticon.view;
+package com.yang.keyboard.emoticon.bean;
 
 import android.content.Context;
 import android.util.AttributeSet;

@@ -6,7 +6,7 @@
         android:id="@+id/item_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-    <com.yang.keyboard.ChatTextView
+    <com.yang.keyboard.view.ChatTextView
         android:id="@+id/item_text"
         android:textSize="20sp"
         android:layout_width="wrap_content"

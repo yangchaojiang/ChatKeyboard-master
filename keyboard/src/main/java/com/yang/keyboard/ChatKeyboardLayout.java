@@ -1,5 +1,6 @@
 package com.yang.keyboard;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
@@ -27,8 +28,8 @@ import com.yang.keyboard.emoticon.EmoticonSetBean;
 import com.yang.keyboard.emoticon.db.EmoticonDBHelper;
 import com.yang.keyboard.emoticon.util.DefEmoticons;
 import com.yang.keyboard.emoticon.util.EmoticonHandler;
-import com.yang.keyboard.emoticon.view.EmoticonLayout;
-import com.yang.keyboard.emoticon.view.EmoticonsToolBarView;
+import com.yang.keyboard.emoticon.bean.EmoticonLayout;
+import com.yang.keyboard.emoticon.bean.EmoticonsToolBarView;
 import com.yang.keyboard.media.MediaBean;
 import com.yang.keyboard.media.MediaLayout;
 import com.yang.keyboard.emoticon.util.EmoticonsKeyboardBuilder;
@@ -63,7 +64,7 @@ public class ChatKeyboardLayout extends SoftHandleLayout implements EmoticonsToo
     private Context mContext;
     private boolean isShowMediaButton = false;   //media func button on or off
     private boolean isLimitedOnlyText = false;
-
+    private OnChatKeyBoardListener mOnChatKeyBoardListener;
     private Drawable mBtnSendBg = null;
     private boolean isShowEmoBtn;
 
@@ -80,13 +81,33 @@ public class ChatKeyboardLayout extends SoftHandleLayout implements EmoticonsToo
         typedArray.recycle();
     }
 
+    @SuppressLint("ClickableViewAccessibility")
+    public void release() {
+        if (btnRecording != null) {
+            btnRecording.setOnRecordingTouchListener(null);
+        }
+        EmoticonHandler.getInstance(getContext()).release();
+        if (etInputArea != null) {
+            etInputArea.setOnTextChangedInterface(null);
+            etInputArea.setOnTouchListener(null);
+            etInputArea.setOnFocusChangeListener(null);
+        }
+        if (btnVoiceOrText != null) {
+            btnVoiceOrText.setOnClickListener(null);
+        }
+        if (btnEmoticon != null) {
+            btnEmoticon.setOnClickListener(null);
+        }
+        if (btnMedia != null) {
+            btnMedia.setOnClickListener(null);
+        }
+        removeAllViews();
+    }
 
     private void initView(Context context) {
         mContext = context;
-        // must be before inflate
         EmoticonHandler.getInstance(context).loadEmoticonsToMemory();
         LayoutInflater.from(context).inflate(R.layout.view_keyboardbar, this);
-
         rl_input = (RelativeLayout) findViewById(R.id.rl_input);
         lyBottomLayout = (LinearLayout) findViewById(R.id.ly_foot_func);
         btnEmoticon = (ImageView) findViewById(R.id.btn_face);
@@ -98,7 +119,6 @@ public class ChatKeyboardLayout extends SoftHandleLayout implements EmoticonsToo
             btnSend.setBackgroundDrawable(mBtnSendBg);
         }
         etInputArea = (HadEditText) findViewById(R.id.et_chat);
-
         setAutoHeightLayoutView(lyBottomLayout);
         btnVoiceOrText.setOnClickListener(new VoiceTextClickListener());
         btnMedia.setOnClickListener(new MediaClickListener());
@@ -108,9 +128,9 @@ public class ChatKeyboardLayout extends SoftHandleLayout implements EmoticonsToo
         btnSend.setOnClickListener(new SendClickListener());
         btnRecording.setOnRecordingTouchListener(new AudioRecordButton.OnRecordingTouchListener() {
             @Override
-            public void onRecordingAction(RecordingAction action) {
+            public void onRecordingAction(AudioRecordButton audioRecordButton, RecordingAction action) {
                 if (mOnChatKeyBoardListener != null) {
-                    mOnChatKeyBoardListener.onRecordingAction(action);
+                    mOnChatKeyBoardListener.onRecordingAction(audioRecordButton, action);
                 }
             }
         });
@@ -185,7 +205,8 @@ public class ChatKeyboardLayout extends SoftHandleLayout implements EmoticonsToo
     }
 
     public void hideKeyboard() {
-        findViewById(R.id.main_view_id).setVisibility(GONE);
+        hideAutoView();
+        closeSoftKeyboard(etInputArea);
     }
 
     public void limitOnlyText() {
@@ -351,10 +372,11 @@ public class ChatKeyboardLayout extends SoftHandleLayout implements EmoticonsToo
         ++FUNC_ORDER_COUNT;
     }
 
-    private void showEmoBtn(boolean isShowEmoBtn) {
+    public void showEmoBtn(boolean isShowEmoBtn) {
         btnEmoticon.setVisibility(isShowEmoBtn ? VISIBLE : GONE);
         this.isShowEmoBtn = isShowEmoBtn;
     }
+
     public void showEmoticons() {
         if (isShowEmoBtn) return;
         btnEmoticon.setVisibility(VISIBLE);
@@ -411,7 +433,6 @@ public class ChatKeyboardLayout extends SoftHandleLayout implements EmoticonsToo
         }
     }
 
-    OnChatKeyBoardListener mOnChatKeyBoardListener;
 
     public void setOnKeyBoardBarListener(OnChatKeyBoardListener l) {
         this.mOnChatKeyBoardListener = l;
@@ -422,51 +443,11 @@ public class ChatKeyboardLayout extends SoftHandleLayout implements EmoticonsToo
 
     }
 
-    public static boolean isEmoticonInitSuccess(Context context) {
-        return Utils.isInitDb(context);
+    public void onDestroy() {
+
     }
 
-    public static void initEmoticonsDB(final Context context, final boolean isShowEmoji, final List<EmoticonEntity> emoticonEntities) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                EmoticonDBHelper emoticonDbHelper = EmoticonHandler.getInstance(context).getEmoticonDbHelper();
-                if (isShowEmoji) {
-                    ArrayList<EmoticonBean> emojiArray = Utils.ParseData(DefEmoticons.emojiArray, EmoticonBean.FACE_TYPE_NORMAL, EmoticonBase.Scheme.DRAWABLE);
-                    EmoticonSetBean emojiEmoticonSetBean = new EmoticonSetBean("emoji", 3, 7);
-                    emojiEmoticonSetBean.setIconUri("drawable://icon_emoji");
-                    emojiEmoticonSetBean.setItemPadding(25);
-                    emojiEmoticonSetBean.setVerticalSpacing(10);
-                    emojiEmoticonSetBean.setShowDelBtn(true);
-                    emojiEmoticonSetBean.setEmoticonList(emojiArray);
-                    emoticonDbHelper.insertEmoticonSet(emojiEmoticonSetBean);
-                }
 
-                List<EmoticonSetBean> emoticonSetBeans = new ArrayList<>();
-                for (EmoticonEntity entity : emoticonEntities) {
-                    try {
-                        EmoticonSetBean bean = Utils.ParseEmoticons(context, entity.getPath(), entity.getScheme());
-                        emoticonSetBeans.add(bean);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        HadLog.e(String.format("read %s config.xml error", entity.getPath()));
-                    } catch (XmlPullParserException e) {
-                        e.printStackTrace();
-                        HadLog.e(String.format("parse %s config.xml error", entity.getPath()));
-                    }
-                }
-
-                for (EmoticonSetBean setBean : emoticonSetBeans) {
-                    emoticonDbHelper.insertEmoticonSet(setBean);
-                }
-                emoticonDbHelper.cleanup();
-
-                if (emoticonSetBeans.size() == emoticonEntities.size()) {
-                    Utils.setIsInitDb(context, true);
-                }
-            }
-        }).start();
-    }
 
     private EmoticonsKeyboardBuilder getBuilder(Context context) {
         if (context == null) {
@@ -484,7 +465,7 @@ public class ChatKeyboardLayout extends SoftHandleLayout implements EmoticonsToo
     public interface OnChatKeyBoardListener {
         void onSendBtnClick(String msg);
 
-        void onRecordingAction(RecordingAction action);
+        void onRecordingAction(AudioRecordButton audioRecordButton, RecordingAction action);
 
         void onUserDefEmoticonClicked(String tag, String uri);
 

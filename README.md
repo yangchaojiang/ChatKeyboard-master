@@ -13,13 +13,13 @@ use     import dependency in gradle
 
 ```
 dependencies {
-compile 'ycjiang:keyboard:1.0.1'
+compile 'ycjiang:keyboard:1.0.6'
 }
 Maven
 dependency>
   <groupId>ycjiang</groupId>
   <artifactId>videolibrary</artifactId>
-  <version>1.0.4</version>
+  <version>1.0.6</version>
   <type>pom</type>
 </dependency>
 ```
@@ -27,7 +27,7 @@ dependency>
 
 dependency
 ```
- compile 'com.android.support:appcompat-v7:23.2.0'
+ compile 'com.android.support:appcompat-v7:25.3.1'
 ```
 
 ###How to use

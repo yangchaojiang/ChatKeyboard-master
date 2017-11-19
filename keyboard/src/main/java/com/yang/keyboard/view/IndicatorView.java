@@ -124,14 +124,16 @@ public class IndicatorView extends LinearLayout {
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                imageViewStrat.setImageDrawable(bmpNormal);
-                ObjectAnimator animFil1l = ObjectAnimator.ofFloat(imageViewStrat, "scaleX", 1.0f);
-                ObjectAnimator animFill2 = ObjectAnimator.ofFloat(imageViewStrat, "scaleY", 1.0f);
-                AnimatorSet mFillAnimatorSet = new AnimatorSet();
-                mFillAnimatorSet.play(animFil1l).with(animFill2);
-                mFillAnimatorSet.start();
-                imageViewNext.setImageDrawable(bmpSelect);
-                mPlayByInAnimatorSet.start();
+                if (imageViewStrat!=null) {
+                    imageViewStrat.setImageDrawable(bmpNormal);
+                    ObjectAnimator animFil1l = ObjectAnimator.ofFloat(imageViewStrat, "scaleX", 1.0f);
+                    ObjectAnimator animFill2 = ObjectAnimator.ofFloat(imageViewStrat, "scaleY", 1.0f);
+                    AnimatorSet mFillAnimatorSet = new AnimatorSet();
+                    mFillAnimatorSet.play(animFil1l).with(animFill2);
+                    mFillAnimatorSet.start();
+                    imageViewNext.setImageDrawable(bmpSelect);
+                    mPlayByInAnimatorSet.start();
+                }
             }
 
             @Override

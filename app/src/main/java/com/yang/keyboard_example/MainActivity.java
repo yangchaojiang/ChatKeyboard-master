@@ -2,19 +2,14 @@ package com.yang.keyboard_example;
 
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.Target;
-import com.yang.keyboard.ChatKeyboardLayout;
-import com.yang.keyboard.KeyboardFragment;
-import com.yang.keyboard.RecordingLayout;
-import com.yang.keyboard.audio.AudioManger;
 import com.yang.keyboard.utils.OnKeyBoardLister;
 import com.yang.keyboard_example.models.DefaultUser;
 import com.yang.keyboard_example.models.MyMessage;
@@ -32,14 +27,30 @@ import cn.jiguang.imui.messages.MessageList;
 import cn.jiguang.imui.messages.MsgListAdapter;
 
 public class MainActivity extends AppCompatActivity implements OnKeyBoardLister {
-    UserFragment keyboardFragment;
+    UserFragment userFragment;
     MessageList messageList;
     MsgListAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
+        userFragment = (UserFragment) getSupportFragmentManager().findFragmentById(R.id.text);
+        userFragment.setKeyBoardLister(this);
+        findViewById(R.id.textView).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                userFragment.getChatKeyboardLayout().hideKeyboard();
+            }
+        });
         messageList = (MessageList) findViewById(R.id.msg_list);
+        userFragment.getView().setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                userFragment.getChatKeyboardLayout().hideKeyboard();
+                return false;
+            }
+        });
         ImageLoader imageLoader = new ImageLoader() {
             @Override
             public void loadAvatarImage(ImageView avatarImageView, String string) {
@@ -66,12 +77,8 @@ public class MainActivity extends AppCompatActivity implements OnKeyBoardLister 
                         .into(imageView);
             }
         };
-        FragmentTransaction sss = getSupportFragmentManager().beginTransaction();
-        keyboardFragment = new UserFragment();
-        sss.add(R.id.sssssssss, keyboardFragment);
-        sss.commit();
-        keyboardFragment.setKeyBoardLister(this);
-          adapter = new MsgListAdapter<MyMessage>("1", imageLoader);
+
+        adapter = new MsgListAdapter<MyMessage>("1", imageLoader);
         adapter.addToEnd(getMessages());
         messageList.setAdapter(adapter);
         messageList.postDelayed(new Runnable() {
@@ -79,9 +86,14 @@ public class MainActivity extends AppCompatActivity implements OnKeyBoardLister 
             public void run() {
                 messageList.scrollToPosition(0);
             }
-        },300);
+        }, 300);
 
 
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return super.onTouchEvent(event);
     }
 
     @Override
@@ -114,6 +126,7 @@ public class MainActivity extends AppCompatActivity implements OnKeyBoardLister 
 
     @Override
     public void clickAddBtn(View view) {
+        messageList.scrollToPosition(0);
 
     }
 

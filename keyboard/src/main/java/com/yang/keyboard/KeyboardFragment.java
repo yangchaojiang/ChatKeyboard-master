@@ -11,11 +11,12 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-
 import com.yang.keyboard.audio.AudioManger;
 import com.yang.keyboard.media.MediaBean;
 import com.yang.keyboard.media.MediaListener;
 import com.yang.keyboard.utils.OnKeyBoardLister;
+import com.yang.keyboard.view.AudioRecordButton;
+import com.yang.keyboard.view.RecordingLayout;
 
 /**
  * Created by yangc on 2017/3/7.
@@ -41,10 +42,6 @@ public class KeyboardFragment extends Fragment implements MediaListener, ChatKey
         super.onViewCreated(view, savedInstanceState);
         keyboardLayout = (ChatKeyboardLayout) view.findViewById(R.id.kv_bar);
         rlRecordArea = (RecordingLayout) view.findViewById(R.id.recording_area);
-        keyboardLayout.showEmoticons();
-        ArrayList<MediaBean> popupModels = intiData();
-        keyboardLayout.showMedias(popupModels);
-        keyboardLayout.setOnKeyBoardBarListener(this);
     }
 
     /****
@@ -70,9 +67,8 @@ public class KeyboardFragment extends Fragment implements MediaListener, ChatKey
             keyBoardLister.sendText(msg);
         }
     }
-
     @Override
-    public void onRecordingAction(ChatKeyboardLayout.RecordingAction action) {
+    public void onRecordingAction(AudioRecordButton audioRecordButton, ChatKeyboardLayout.RecordingAction action) {
         switch (action) {
             case START:
                 String mVoicePath = AudioManger.getInstance().generatePath(getActivity());
@@ -136,5 +132,15 @@ public class KeyboardFragment extends Fragment implements MediaListener, ChatKey
 
     public void setKeyBoardLister(OnKeyBoardLister keyBoardLister) {
         this.keyBoardLister = keyBoardLister;
+    }
+
+    @CallSuper
+    @Override
+    public void onDestroy() {
+        if (keyboardLayout!=null){
+            keyboardLayout.release();
+        }
+        super.onDestroy();
+
     }
 }

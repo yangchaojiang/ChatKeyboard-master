@@ -1,4 +1,4 @@
-package com.yang.keyboard;
+package com.yang.keyboard.emoticon.bean;
 
 import com.yang.keyboard.utils.EmoticonBase;
 

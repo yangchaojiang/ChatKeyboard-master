@@ -1,4 +1,4 @@
-package com.yang.keyboard;
+package com.yang.keyboard.view;
 
 import android.content.Context;
 import android.text.SpannableStringBuilder;

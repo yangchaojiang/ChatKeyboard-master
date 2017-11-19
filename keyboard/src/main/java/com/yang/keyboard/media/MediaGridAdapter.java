@@ -16,8 +16,8 @@ import com.yang.keyboard.R;
 /**
  * Created by yangc on 2017/3/7.
  * E-Mail:1007181167@qq.com
- *
- * @deprecated 自定义选择 适配器
+ * <p>
+ * deprecated 自定义选择 适配器
  **/
 public class MediaGridAdapter extends BaseAdapter {
     private ArrayList<MediaBean> mediaModels;
@@ -50,7 +50,7 @@ public class MediaGridAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.tvText.setCompoundDrawablesWithIntrinsicBounds(null,ContextCompat.getDrawable(mContext, getItem(position).getDrawableId()),null,null);
+        viewHolder.tvText.setCompoundDrawablesWithIntrinsicBounds(null, ContextCompat.getDrawable(mContext, getItem(position).getDrawableId()), null, null);
         viewHolder.tvText.setText(getItem(position).getText());
 
         convertView.setOnClickListener(new OnClickListener() {

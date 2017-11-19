@@ -15,7 +15,7 @@
         app:sendBtnBg="@drawable/send_button_bg">
     </com.yang.keyboard.ChatKeyboardLayout>
 
-    <com.yang.keyboard.RecordingLayout
+    <com.yang.keyboard.view.RecordingLayout
         android:id="@+id/recording_area"
         android:visibility="gone"
         android:layout_width="180dp"

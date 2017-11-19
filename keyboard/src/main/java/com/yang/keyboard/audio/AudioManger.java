@@ -1,10 +1,13 @@
 package com.yang.keyboard.audio;
 
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Environment;
 import android.os.Handler;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.PermissionChecker;
 
 import java.io.File;
 import java.io.IOException;
@@ -55,6 +58,12 @@ public class AudioManger {
         mPeriod = 0;
         mListener = listener;
         recorder = new MediaRecorder();
+        recorder.setOnInfoListener(new MediaRecorder.OnInfoListener() {
+            @Override
+            public void onInfo(MediaRecorder mr, int what, int extra) {
+
+            }
+        });
         recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         // 设置文件音频的输出格式为aac
         recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
@@ -65,7 +74,6 @@ public class AudioManger {
         // .m4a 格式可以在 iOS 上直接播放
         //recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
         recorder.setOutputFile(path);
-
         try {
             recorder.prepare();
             recorder.start();
@@ -241,5 +249,9 @@ public class AudioManger {
         return mPath;
     }
 
+    private boolean voicePermission(Context context) {
+        return (PackageManager.PERMISSION_GRANTED == ContextCompat.
+                checkSelfPermission(context, android.Manifest.permission.RECORD_AUDIO));
+    }
 
 }

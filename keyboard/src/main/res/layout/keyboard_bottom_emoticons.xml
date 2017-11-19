@@ -9,7 +9,7 @@
         android:id="@+id/view_spit1"
         android:layout_alignParentTop="true"/>
 
-    <com.yang.keyboard.emoticon.view.EmoticonsToolBarView
+    <com.yang.keyboard.emoticon.bean.EmoticonsToolBarView
         android:id="@+id/emoticon_page_toolbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/bar_height"
@@ -31,7 +31,7 @@
         android:paddingBottom="@dimen/indicator_margin">
     </com.yang.keyboard.view.IndicatorView>
 
-    <com.yang.keyboard.emoticon.view.EmoticonsPageView
+    <com.yang.keyboard.emoticon.bean.EmoticonsPageView
         android:id="@+id/emoticon_page_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
